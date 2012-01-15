@@ -310,7 +310,9 @@ class Upload implements Extension {
 		}else{
 			$source = $url;
 		}
-		
+		if(!preg_match("#^(https?|ftp)://#", $source)) {
+			 $source = $url;
+		}
 		// Checks if user is admin > check if you want locked.
 		if($user->is_admin()){
 			$locked = bool_escape($_GET['locked']);
@@ -357,7 +359,7 @@ class Upload implements Extension {
 			curl_setopt($ch, CURLOPT_FILE, $fp);
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_REFERER, $url);
-			curl_setopt($ch, CURLOPT_USERAGENT, "Shimmie-".VERSION);
+			curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
 
 			curl_exec($ch);
 			curl_close($ch);
