@@ -17,7 +17,14 @@ class Themelet {
 
 	public function build_thumb_html(Image $image, $query=null) {
 		global $config;
-		$h_view_link = make_link("post/view/{$image->id}", $query);
+		
+		//Aargh I don't want to copy/past
+		$tags = $image->get_tag_list();
+		$tags = str_replace("/", "", $tags);
+		$tags = str_replace(" ", "-", $tags);
+		$tags = preg_replace("/^\.+/", "", $tags);
+		
+		$h_view_link = make_link("post/view/{$image->id}/$tags", $query);
 		$h_thumb_link = $image->get_thumb_link();
 
 

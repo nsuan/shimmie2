@@ -33,6 +33,7 @@ function url_escape($input) {
 	$input = str_replace('^', '^^', $input);
 	$input = str_replace('/', '^s', $input);
 	$input = str_replace('\\', '^b', $input);
+	$input = str_replace(' ', '-', $input);
 	$input = rawurlencode($input);
 	return $input;
 }
